@@ -9,7 +9,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Playfair+Display:ital,wght@1,500&family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -67,6 +67,10 @@
     .nav ul { display: flex; gap: 28px; list-style: none; }
     .nav ul a { font-weight: 600; font-size: .95rem; transition: color .2s; }
     .nav ul a:hover { color: var(--menthe); }
+    /* Menu à gauche, logo à droite */
+    .nav ul { order: 1; }
+    .nav > a { order: 2; }
+    .burger { order: 0; }
     .burger { display: none; background: none; border: 0; cursor: pointer; padding: 6px; }
     .burger span { display: block; width: 26px; height: 2px; background: var(--blanc); margin: 6px 0; transition: .3s; }
 
@@ -96,6 +100,7 @@
     .hero-texte-bloc { width: 100%; max-width: 520px; margin: 0 auto; }
     .hero-logo { display: block; width: min(420px, 90%); margin: 0 auto 24px; }
     .hero p.intro { max-width: 520px; color: #e2e2e2; margin-bottom: 34px; font-size: 1.1rem; }
+    .hero p.intro strong { color: var(--menthe); }
     .hero .actions { display: flex; flex-wrap: wrap; gap: 14px; }
 
     /* ---------- Sections ---------- */
@@ -165,7 +170,7 @@
     .acro-up .chevrons { width: 60px; height: 54px; color: var(--blanc); }
 
     /* ---------- Coaching : comment ça se passe ---------- */
-    .coaching .grille { display: grid; grid-template-columns: 1.7fr 1fr; gap: 70px; align-items: start; }
+    .coaching .grille { display: grid; grid-template-columns: 1.4fr 1fr; gap: 70px; align-items: start; }
     .coaching .intro-coaching { color: #d6d6d6; font-size: 1.05rem; margin-bottom: 40px; max-width: 620px; }
     .coaching .intro-coaching strong { color: var(--menthe); }
     .etapes { list-style: none; position: relative; }
@@ -184,20 +189,46 @@
     }
     .etape h3 { font-size: 1.45rem; margin: 8px 0 6px; }
     .etape p { color: var(--gris); }
+    .etape p strong { color: var(--blanc); }
     .etape:last-child .etape-num { background: var(--menthe); color: var(--noir); }
-    .coaching .photo-coaching { position: sticky; top: 130px; max-width: 360px; justify-self: end; }
+    .coaching .photo-coaching { position: sticky; top: 130px; max-width: 440px; width: 100%; justify-self: end; }
     .coaching .photo-coaching img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--radius); }
 
     /* ---------- Bandeau ---------- */
     .bandeau { background: var(--menthe); color: var(--noir); padding: 70px 0; text-align: center; }
-    .bandeau h2 { font-size: clamp(1.8rem, 5vw, 3rem); }
-    .bandeau p { font-weight: 600; margin-top: 10px; }
+    .bandeau h2 {
+      font-family: "Playfair Display", Georgia, serif; font-style: italic; font-weight: 500;
+      text-transform: none; letter-spacing: 0; line-height: 1.25;
+      font-size: clamp(1.7rem, 4vw, 2.8rem);
+    }
+    .bandeau h2::before, .bandeau h2::after { content: "«\00a0"; }
+    .bandeau h2::after { content: "\00a0»"; }
 
     /* ---------- Contact ---------- */
     .contact .grille { display: grid; grid-template-columns: 1fr 1.1fr; gap: 60px; align-items: center; }
     .contact .photo-contact img { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: var(--radius); }
     .contact .titre { margin-bottom: 34px; }
     .contact .actions { display: flex; flex-wrap: wrap; gap: 14px; }
+    .btn-contour { background: none; cursor: pointer; font-family: inherit; }
+
+    /* ---------- Formulaire ---------- */
+    .formulaire { display: none; margin-top: 30px; }
+    .formulaire.ouvert { display: grid; gap: 14px; }
+    .formulaire .ligne { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .formulaire label { display: grid; gap: 6px; font-size: .85rem; font-weight: 600; color: var(--gris); }
+    .formulaire input, .formulaire textarea {
+      width: 100%; padding: 14px 16px; border-radius: 10px;
+      background: var(--noir-2); border: 1px solid rgba(255,255,255,.12);
+      color: var(--blanc); font: inherit; font-size: 1rem;
+      transition: border-color .2s;
+    }
+    .formulaire textarea { min-height: 130px; resize: vertical; }
+    .formulaire input:focus, .formulaire textarea:focus { outline: none; border-color: var(--menthe); }
+    .formulaire button { justify-self: start; border: 0; cursor: pointer; font-family: inherit; }
+    .formulaire .piege { display: none; }
+    .form-message { font-weight: 600; }
+    .form-message.ok { color: var(--menthe); }
+    .form-message.erreur { color: #ff8a8a; }
 
     /* ---------- Footer ---------- */
     footer { border-top: 1px solid rgba(255,255,255,.08); padding: 34px 0; }
@@ -216,7 +247,8 @@
       .piliers { grid-template-columns: 1fr; }
       .apropos .grille, .coaching .grille, .contact .grille { grid-template-columns: 1fr; gap: 50px; }
       .apropos .photo-wrap, .coaching .photo-coaching { position: relative; top: 0; }
-      .coaching .photo-coaching { order: -1; max-width: 360px; justify-self: start; }
+      .coaching .photo-coaching { order: -1; max-width: 420px; justify-self: start; }
+      .formulaire .ligne { grid-template-columns: 1fr; }
       .etape { gap: 22px; }
       .blise { grid-template-columns: 1fr; }
       .acro-up { flex-direction: row; justify-content: center; padding: 20px 0 0; border-left: 0; border-top: 1px solid rgba(255,255,255,.15); }
@@ -293,7 +325,7 @@
       <div class="approche-texte reveal">
         <p class="accroche">
           On part de toi, on adapte ensemble un programme
-          qui pourra répondre à ton équilibre de vie <strong>ET</strong> à ton objectif sportif.
+          qui répond à ton équilibre de vie <strong>ET</strong> à ton objectif sportif.
         </p>
         <p>
           Je suis convaincue que le sport est bien plus qu'une question de performance. C'est un moyen de se
@@ -345,12 +377,15 @@
         </p>
         <p class="fort">Mais derrière BLISE UP, il y a une histoire plus personnelle.</p>
         <p>
-          Le sport a toujours fait partie de ma vie. Il m'a fait vibrer, découvrir mes limites, les repousser
-          et vivre de belles aventures.
+          Le sport a toujours fait partie de ma vie. Il m'a fait vibrer, m'a permis de découvrir mes limites,
+          de les dépasser et partager de belles aventures.
         </p>
         <p>
           Mais le sport, ce n'est pas toujours une histoire de réussite. Ce sont aussi des doutes, des remises en
-          question et parfois même des moments où l'on se perd un peu. C'est de cette conviction qu'est né BLISE UP :
+          question et parfois même des moments où l'on se perd un peu.
+        </p>
+        <p>
+          C'est de cette conviction qu'est né BLISE UP :
           un coaching qui place l'humain avant la performance, qui respecte les rythmes de chacun et qui donne autant
           d'importance au plaisir de se dépasser qu'aux objectifs sportifs.
         </p>
@@ -407,14 +442,14 @@
               <span class="etape-num">03</span>
               <div>
                 <h3>On débriefe</h3>
-                <p>Après chaque séance, tu reçois un retour sur ton entraînement.</p>
+                <p><strong>Après chaque séance</strong>, tu reçois un retour détaillé sur ton entraînement, qui combine ton ressenti personnel et les données récoltées afin de mieux comprendre tes performances et suivre ta progression.</p>
               </div>
             </li>
             <li class="etape reveal">
               <span class="etape-num">04</span>
               <div>
                 <h3>On avance</h3>
-                <p>Chaque semaine, tu reçois ta nouvelle structure d'entraînement, évolutive et adaptée à notre discussion de départ afin d'atteindre tes objectifs.</p>
+                <p><strong>Chaque semaine</strong>, tu reçois ta nouvelle structure d'entraînement, évolutive et adaptée à notre discussion de départ afin d'atteindre tes objectifs.</p>
               </div>
             </li>
             <li class="etape reveal">
@@ -452,8 +487,25 @@
         <h2 class="titre reveal">Prêt·e à <span class="menthe">passer au niveau UP</span> ?</h2>
         <div class="actions reveal">
           <a href="https://www.instagram.com/blise_up/" target="_blank" rel="noopener" class="btn btn-menthe">Écris-moi sur Instagram</a>
-          <a href="mailto:lise@bliseup.ch" class="btn btn-contour">lise@bliseup.ch</a>
+          <button type="button" class="btn btn-contour" id="ouvrirForm" aria-expanded="false" aria-controls="formContact">Ou par mail</button>
         </div>
+
+        <!-- Formulaire : les messages arrivent dans la boîte mail de Lise via FormSubmit -->
+        <form class="formulaire" id="formContact" action="https://formsubmit.co/lise.puigserver@outlook.com" method="POST">
+          <input type="hidden" name="_subject" value="Nouveau message depuis le site Blise Up">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="text" name="_honey" class="piege" tabindex="-1" autocomplete="off">
+
+          <div class="ligne">
+            <label>Prénom<input type="text" name="Prénom" required autocomplete="given-name"></label>
+            <label>Nom<input type="text" name="Nom" required autocomplete="family-name"></label>
+          </div>
+          <label>Téléphone ou adresse e-mail<input type="text" name="Téléphone ou e-mail" required></label>
+          <label>Message<textarea name="Message" required></textarea></label>
+          <button type="submit" class="btn btn-menthe">Envoyer</button>
+          <p class="form-message" id="formMessage" role="status"></p>
+        </form>
       </div>
     </div>
   </section>
@@ -485,6 +537,37 @@
       entrees.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
     }, { threshold: 0.15 });
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // Formulaire de contact
+    const boutonForm = document.getElementById('ouvrirForm');
+    const form = document.getElementById('formContact');
+    const formMessage = document.getElementById('formMessage');
+    boutonForm.addEventListener('click', () => {
+      const ouvert = form.classList.toggle('ouvert');
+      boutonForm.setAttribute('aria-expanded', ouvert);
+      if (ouvert) form.querySelector('input[type="text"]:not(.piege)').focus();
+    });
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const bouton = form.querySelector('button[type="submit"]');
+      bouton.disabled = true; bouton.textContent = 'Envoi…';
+      formMessage.className = 'form-message'; formMessage.textContent = '';
+      try {
+        const rep = await fetch('https://formsubmit.co/ajax/lise.puigserver@outlook.com', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(form)
+        });
+        if (!rep.ok) throw new Error();
+        form.reset();
+        formMessage.classList.add('ok');
+        formMessage.textContent = 'Merci ! Ton message est bien parti, je te réponds au plus vite.';
+      } catch (err) {
+        formMessage.classList.add('erreur');
+        formMessage.textContent = "Oups, l'envoi n'a pas fonctionné. Réessaie ou écris-moi sur Instagram.";
+      }
+      bouton.disabled = false; bouton.textContent = 'Envoyer';
+    });
 
     // Année automatique
     document.getElementById('annee').textContent = new Date().getFullYear();
