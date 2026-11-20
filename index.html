@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blise Up – Coaching sportif & préparation physique en Valais</title>
   <meta name="description" content="Blise Up – Lise, coach & préparatrice physique en Valais. Du sport, à ta manière : un coaching adapté à TA vie pour progresser sans sacrifier ton équilibre.">
-  <link rel="icon" href="images/logo-noir.jpeg">
+  <link rel="icon" href="images/logo.jpeg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,7 +24,7 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
     body {
       font-family: "Open Sans", system-ui, sans-serif;
       background: var(--noir);
@@ -36,6 +36,7 @@
     a { color: inherit; text-decoration: none; }
 
     .container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
     h1, h2, h3 {
       font-family: "Anton", Impact, sans-serif;
@@ -46,21 +47,18 @@
     }
     .menthe { color: var(--menthe); }
 
-    /* ---------- Logo (chevrons) ---------- */
+    /* ---------- Logo ---------- */
     .chevrons { width: 34px; height: 30px; flex-shrink: 0; }
-    .logo {
-      display: flex; align-items: center; gap: 10px;
-      font-weight: 800; font-size: 1.25rem; letter-spacing: 1px;
-    }
+    .logo-img { height: 58px; width: 58px; border-radius: 50%; }
 
     /* ---------- Navigation ---------- */
     header {
       position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-      background: rgba(11, 11, 11, .85);
+      background: rgba(11, 11, 11, .92);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid rgba(255,255,255,.06);
     }
-    .nav { display: flex; align-items: center; justify-content: space-between; height: 70px; }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 74px; }
     .nav ul { display: flex; gap: 28px; list-style: none; }
     .nav ul a { font-weight: 600; font-size: .95rem; transition: color .2s; }
     .nav ul a:hover { color: var(--menthe); }
@@ -78,27 +76,20 @@
     .btn-contour { border: 2px solid var(--blanc); color: var(--blanc); }
     .btn-contour:hover { border-color: var(--menthe); color: var(--menthe); }
 
-    /* ---------- Hero ---------- */
+    /* ---------- Hero : photo à gauche, texte à droite sur fond noir ---------- */
     .hero {
-      position: relative; min-height: 100vh;
-      display: flex; align-items: center;
-      background: var(--noir-2) url("images/montagne.jpeg") center / cover no-repeat;
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 100vh; padding: 0 !important;
+      background: #000; /* même noir que le fond du logo */
     }
-    .hero::before {
-      content: ""; position: absolute; inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.35) 45%, rgba(11,11,11,1) 100%);
+    .hero-photo { position: relative; min-height: 100vh; }
+    .hero-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .hero-texte {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 120px 7vw 60px;
     }
-    .hero .container { position: relative; padding-top: 90px; padding-bottom: 60px; }
-    .hero-cercle {
-      position: absolute; right: -120px; top: 50%; transform: translateY(-50%);
-      width: 560px; height: 560px; border-radius: 50%;
-      border: 1.5px solid rgba(134, 217, 165, .45);
-      border-left-color: transparent; border-bottom-color: transparent;
-      pointer-events: none;
-    }
-    .hero h1 { font-size: clamp(2.8rem, 8vw, 6rem); margin-bottom: 12px; }
-    .hero .slogan { font-size: clamp(1.2rem, 3vw, 1.6rem); font-weight: 700; margin-bottom: 26px; }
-    .hero p.intro { max-width: 540px; color: #e2e2e2; margin-bottom: 34px; font-size: 1.05rem; }
+    .hero-logo { width: min(300px, 70%); margin-bottom: 28px; margin-left: -18px; }
+    .hero p.intro { max-width: 520px; color: #e2e2e2; margin-bottom: 34px; font-size: 1.1rem; }
     .hero .actions { display: flex; flex-wrap: wrap; gap: 14px; }
 
     /* ---------- Sections ---------- */
@@ -110,22 +101,31 @@
     .titre { font-size: clamp(2rem, 5vw, 3.2rem); margin-bottom: 20px; }
     .sous-titre { color: var(--gris); max-width: 620px; margin-bottom: 50px; }
 
-    /* ---------- Piliers ---------- */
+    /* ---------- Approche ---------- */
+    .approche-texte { max-width: 780px; margin-bottom: 56px; }
+    .approche-texte p { color: #d6d6d6; margin-bottom: 16px; font-size: 1.05rem; }
+    .approche-texte p.accroche { color: var(--blanc); font-weight: 600; font-size: 1.15rem; }
+    .approche-texte strong { color: var(--menthe); }
+
     .piliers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
     .pilier {
+      position: relative; overflow: hidden;
       background: var(--noir-2); border: 1px solid rgba(255,255,255,.07);
       border-radius: var(--radius); padding: 34px 28px;
       transition: border-color .25s, transform .25s;
     }
+    .pilier::before {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--menthe);
+    }
     .pilier:hover { border-color: var(--menthe); transform: translateY(-4px); }
-    .pilier .icone { font-size: 2rem; margin-bottom: 14px; }
+    .pilier .icone { width: 46px; height: 42px; margin-bottom: 18px; color: var(--blanc); }
     .pilier h3 { font-size: 1.5rem; margin-bottom: 10px; }
     .pilier p { color: var(--gris); }
 
     /* ---------- À propos ---------- */
     .apropos { background: var(--blanc); color: var(--noir); }
-    .apropos .grille { display: grid; grid-template-columns: 1fr 1.1fr; gap: 60px; align-items: center; }
-    .apropos .photo-wrap { position: relative; }
+    .apropos .grille { display: grid; grid-template-columns: 1fr 1.25fr; gap: 60px; align-items: start; }
+    .apropos .photo-wrap { position: sticky; top: 110px; z-index: 0; }
     .apropos .photo-wrap img {
       width: 100%; aspect-ratio: 4/5; object-fit: cover;
       border-radius: var(--radius); background: #ddd;
@@ -134,51 +134,64 @@
       content: ""; position: absolute; inset: -16px -16px 16px 16px; z-index: -1;
       border: 2px solid var(--menthe); border-radius: var(--radius);
     }
-    .apropos .grille > div:first-child { position: relative; z-index: 0; }
     .apropos p { margin-bottom: 16px; color: #333; }
+    .apropos p.fort { font-weight: 700; color: var(--noir); }
     .apropos .etiquette { color: var(--menthe-fonce); }
-    .chiffres { display: flex; gap: 34px; margin-top: 28px; flex-wrap: wrap; }
-    .chiffres div strong { display: block; font-family: "Anton", sans-serif; font-size: 2rem; font-weight: 400; }
-    .chiffres div span { font-size: .9rem; color: #555; }
 
-    /* ---------- Offres ---------- */
-    .offres { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-    .offre {
-      position: relative; border-radius: var(--radius); overflow: hidden;
-      min-height: 440px; display: flex; align-items: flex-end;
-      background: var(--noir-2);
+    .blise {
+      display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px;
+      margin-top: 30px; padding: 28px; border-radius: var(--radius);
+      background: var(--noir); color: var(--blanc);
     }
-    .offre img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
-    .offre:hover img { transform: scale(1.05); }
-    .offre::before {
-      content: ""; position: absolute; inset: 0; z-index: 1;
-      background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,.92) 100%);
+    .acro { list-style: none; display: grid; gap: 12px; }
+    .acro li { display: flex; align-items: baseline; gap: 16px; }
+    .acro b {
+      font-family: "Anton", sans-serif; font-weight: 400; font-size: 2rem; line-height: 1;
+      color: var(--menthe); width: 26px; flex-shrink: 0;
     }
-    .offre .contenu { position: relative; z-index: 2; padding: 28px; }
-    .offre h3 { font-size: 1.7rem; margin-bottom: 8px; }
-    .offre p { color: #ddd; font-size: .95rem; margin-bottom: 14px; }
-    .offre .lien { color: var(--menthe); font-weight: 700; font-size: .9rem; }
+    .acro strong { color: var(--blanc); }
+    .acro span { color: #cfcfcf; }
+    .acro-up {
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      font-family: "Anton", sans-serif; font-size: clamp(3rem, 6vw, 4.5rem); line-height: 1; color: var(--menthe);
+      padding-left: 24px; border-left: 1px solid rgba(255,255,255,.15);
+    }
+    .acro-up .chevrons { width: 60px; height: 54px; color: var(--blanc); }
 
-    /* ---------- Bandeau citation ---------- */
+    /* ---------- Coaching : comment ça se passe ---------- */
+    .coaching .grille { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: start; }
+    .coaching .intro-coaching { color: #d6d6d6; font-size: 1.05rem; margin-bottom: 40px; max-width: 620px; }
+    .coaching .intro-coaching strong { color: var(--menthe); }
+    .etapes { list-style: none; position: relative; }
+    .etapes::before {
+      content: ""; position: absolute; left: 23px; top: 10px; bottom: 10px; width: 2px;
+      background: linear-gradient(var(--menthe), rgba(134,217,165,.15));
+    }
+    .etape { position: relative; display: grid; grid-template-columns: 48px 1fr; gap: 20px; padding-bottom: 30px; }
+    .etape:last-child { padding-bottom: 0; }
+    .etape-num {
+      position: relative; z-index: 1;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--noir); border: 2px solid var(--menthe); color: var(--menthe);
+      display: flex; align-items: center; justify-content: center;
+      font-family: "Anton", sans-serif; font-size: 1.1rem;
+    }
+    .etape h3 { font-size: 1.45rem; margin: 8px 0 6px; }
+    .etape p { color: var(--gris); }
+    .etape:last-child .etape-num { background: var(--menthe); color: var(--noir); }
+    .coaching .photo-coaching { position: sticky; top: 110px; }
+    .coaching .photo-coaching img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--radius); }
+
+    /* ---------- Bandeau ---------- */
     .bandeau { background: var(--menthe); color: var(--noir); padding: 70px 0; text-align: center; }
     .bandeau h2 { font-size: clamp(1.8rem, 5vw, 3rem); }
     .bandeau p { font-weight: 600; margin-top: 10px; }
 
-    /* ---------- Galerie ---------- */
-    .galerie {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      grid-auto-rows: 220px; gap: 12px;
-    }
-    .galerie figure { border-radius: 10px; overflow: hidden; background: var(--noir-2); }
-    .galerie img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
-    .galerie figure:hover img { transform: scale(1.06); }
-    .galerie .haute { grid-row: span 2; }
-    .galerie .large { grid-column: span 2; }
-
     /* ---------- Contact ---------- */
-    .contact { text-align: center; }
-    .contact .sous-titre { margin-left: auto; margin-right: auto; }
-    .contact .actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; }
+    .contact .grille { display: grid; grid-template-columns: 1fr 1.1fr; gap: 60px; align-items: center; }
+    .contact .photo-contact img { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: var(--radius); }
+    .contact .sous-titre { margin-bottom: 34px; }
+    .contact .actions { display: flex; flex-wrap: wrap; gap: 14px; }
 
     /* ---------- Footer ---------- */
     footer { border-top: 1px solid rgba(255,255,255,.08); padding: 34px 0; }
@@ -191,28 +204,32 @@
 
     /* ---------- Responsive ---------- */
     @media (max-width: 900px) {
-      .piliers, .offres { grid-template-columns: 1fr; }
-      .apropos .grille { grid-template-columns: 1fr; gap: 50px; }
-      .galerie { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; }
-      .hero-cercle { width: 380px; height: 380px; right: -180px; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-photo { min-height: 55vh; margin-top: 74px; }
+      .hero-texte { padding: 50px 20px 70px; }
+      .piliers { grid-template-columns: 1fr; }
+      .apropos .grille, .coaching .grille, .contact .grille { grid-template-columns: 1fr; gap: 50px; }
+      .apropos .photo-wrap, .coaching .photo-coaching { position: relative; top: 0; }
+      .coaching .photo-coaching { order: -1; max-width: 480px; }
+      .blise { grid-template-columns: 1fr; }
+      .acro-up { flex-direction: row; justify-content: center; padding: 20px 0 0; border-left: 0; border-top: 1px solid rgba(255,255,255,.15); }
     }
     @media (max-width: 760px) {
       .burger { display: block; }
       .nav ul {
-        position: absolute; top: 70px; left: 0; right: 0;
+        position: absolute; top: 74px; left: 0; right: 0;
         flex-direction: column; gap: 0; background: var(--noir);
         max-height: 0; overflow: hidden; transition: max-height .35s ease;
       }
       .nav ul.ouvert { max-height: 400px; border-bottom: 1px solid rgba(255,255,255,.08); }
       .nav ul li a { display: block; padding: 16px 20px; }
       section { padding: 70px 0; }
-      .offre { min-height: 380px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ===== Symbole du logo (réutilisé partout) ===== -->
+  <!-- ===== Symbole des chevrons (utilisé dans les carrés et le bloc BLISE) ===== -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <symbol id="chevrons" viewBox="0 0 100 90">
       <polyline points="8,40 50,8 92,40" fill="none" stroke="currentColor" stroke-width="14" stroke-linejoin="miter"/>
@@ -223,9 +240,8 @@
   <!-- ===== En-tête ===== -->
   <header>
     <div class="container nav">
-      <a href="#accueil" class="logo">
-        BLISE UP
-        <svg class="chevrons"><use href="#chevrons"/></svg>
+      <a href="#accueil" aria-label="Blise Up – retour à l'accueil">
+        <img src="images/logo.jpeg" alt="Logo Blise Up" class="logo-img">
       </a>
       <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -234,7 +250,6 @@
         <li><a href="#approche">Approche</a></li>
         <li><a href="#apropos">À propos</a></li>
         <li><a href="#coaching">Coaching</a></li>
-        <li><a href="#galerie">Galerie</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </div>
@@ -242,13 +257,15 @@
 
   <!-- ===== Accueil ===== -->
   <section class="hero" id="accueil">
-    <div class="hero-cercle"></div>
-    <div class="container">
+    <div class="hero-photo">
+      <img src="images/accueil.jpeg" alt="Chaussette de course Blise Up et basket, photo à l'envers devant la montagne">
+    </div>
+    <div class="hero-texte">
+      <img src="images/logo-slogan.jpeg" alt="Blise Up – Du sport, à ta manière !" class="hero-logo">
+      <h1 class="sr-only">Blise Up – Du sport, à ta manière !</h1>
       <span class="etiquette">Coach & préparatrice physique · Valais</span>
-      <h1>Blise <span class="menthe">Up</span></h1>
-      <p class="slogan">Du sport, à ta manière !</p>
       <p class="intro">
-        Que tu vises ton premier dossard, un marathon ou simplement le plaisir de bouger,
+        Que tu vises ton premier dossard, une course qui te challenge ou simplement le plaisir de bouger,
         je t'accompagne avec un coaching adapté à <strong>TA</strong> vie, pour progresser
         sans sacrifier ton équilibre.
       </p>
@@ -263,25 +280,38 @@
   <section id="approche">
     <div class="container">
       <span class="etiquette reveal">Mon approche</span>
-      <h2 class="titre reveal">Ton sport, <span class="menthe">tes règles</span></h2>
-      <p class="sous-titre reveal">
-        Pas de programme copié-collé : on part de toi, de tes objectifs, de tes envies et de tes besoins.
-      </p>
+      <h2 class="titre reveal">Ton sport, tes règles<br><span class="menthe">Notre défi</span></h2>
+      <div class="approche-texte reveal">
+        <p class="accroche">
+          On part de toi, de tes objectifs, de tes envies et de tes besoins. On adapte ensemble un programme
+          qui pourra répondre à ton équilibre de vie <strong>ET</strong> à ton objectif sportif.
+        </p>
+        <p>
+          Je suis convaincue que le sport est bien plus qu'une question de performance. C'est un moyen de se
+          découvrir, de gagner en confiance, de se dépasser, mais aussi de trouver un équilibre dans un quotidien
+          parfois bien rempli.
+        </p>
+        <p>
+          Avec BLISE UP, je souhaite proposer un coaching qui s'adapte à la personne, et non l'inverse. Que
+          l'objectif soit de retrouver le plaisir de bouger, de relever un nouveau défi ou de préparer une
+          compétition, chaque parcours mérite une approche personnelle.
+        </p>
+      </div>
       <div class="piliers">
         <div class="pilier reveal">
-          <div class="icone">💡</div>
+          <svg class="icone" aria-hidden="true"><use href="#chevrons"/></svg>
           <h3>Du sport, à ta manière</h3>
           <p>Course à pied, trail, vélo, triathlon ou renforcement : on construit autour de ce qui te motive vraiment.</p>
         </div>
         <div class="pilier reveal">
-          <div class="icone">🏃</div>
-          <h3>Progresser sans s'épuiser</h3>
-          <p>Avancer vers tes objectifs tout en préservant ton équilibre : boulot, famille, récupération et plaisir.</p>
+          <svg class="icone" aria-hidden="true"><use href="#chevrons"/></svg>
+          <h3>Faire plus ≠ progresser plus</h3>
+          <p>Un plan qui s'ajuste à ton agenda et à ton niveau, avec un suivi régulier pour garder le cap.</p>
         </div>
         <div class="pilier reveal">
-          <div class="icone">🎓</div>
+          <svg class="icone" aria-hidden="true"><use href="#chevrons"/></svg>
           <h3>Adapté à TA vie</h3>
-          <p>Un plan qui s'ajuste à ton agenda et à ton niveau, avec un suivi régulier pour garder le cap.</p>
+          <p>Avancer vers tes objectifs tout en préservant ton équilibre : boulot, famille, récupération et plaisir.</p>
         </div>
       </div>
     </div>
@@ -291,63 +321,112 @@
   <section class="apropos" id="apropos">
     <div class="container grille">
       <div class="photo-wrap reveal">
-        <img src="images/lise-portrait.jpeg" alt="Lise, coach Blise Up, souriante en t-shirt Blise Up">
+        <img src="images/lise-lac.jpeg" alt="Lise dans un lac de montagne en Valais, tout sourire" loading="lazy">
       </div>
       <div class="reveal">
         <span class="etiquette">À propos</span>
         <h2 class="titre">Salut, moi c'est <span style="color:var(--menthe-fonce)">Lise</span></h2>
-        <p>
-          Coach et préparatrice physique basée en Valais depuis 4 ans, je partage ma passion pour l'endurance
-          entre routes de vignes, sentiers de montagne et lignes d'arrivée.
+        <p class="fort">
+          Passionnée de sport, de mouvement et d'aventures humaines, j'aime les défis, les rencontres et tout
+          ce qui nous pousse à aller un peu plus loin !
         </p>
         <p>
-          Marathon, triathlon, trail… je connais les doutes, la fatigue et la joie de franchir l'arche.
-          Mon objectif : t'aider à vivre la même chose, à ton rythme et sans te perdre en route.
+          Travailleuse sociale de métier et coach sportive en parallèle, j'allie deux casquettes qui, pour moi,
+          se complètent naturellement. Dans les deux domaines, j'aime comprendre, accompagner, motiver et valoriser
+          les ressources de chacun.
         </p>
-        <div class="chiffres">
-          <div><strong>4 ans</strong><span>de coaching</span></div>
-          <div><strong>Marathon</strong><span>Berlin 2025</span></div>
-          <div><strong>Triathlon</strong><span>Finisher</span></div>
-          <div><strong>Valais</strong><span>Terrain de jeu</span></div>
+        <p class="fort">Mais derrière BLISE UP, il y a une histoire plus personnelle.</p>
+        <p>
+          Le sport a toujours fait partie de ma vie. Il m'a fait vibrer, découvrir mes limites, les repousser,
+          vivre de belles aventures et faire des rencontres incroyables.
+        </p>
+        <p>
+          Mais le sport, ce n'est pas toujours une histoire de réussite, de motivation et de dépassement de soi.
+          Ce sont aussi des blessures, des doutes, des remises en question et parfois même des moments où l'on se
+          perd un peu, où l'on ne sait plus vraiment pourquoi on court, pourquoi on s'entraîne ou ce que l'on recherche.
+        </p>
+        <p>
+          C'est de cette conviction qu'est né BLISE UP : un coaching qui place l'humain avant la performance, qui
+          respecte les rythmes de chacun et qui donne autant d'importance au plaisir, à l'équilibre et à la
+          confiance qu'aux objectifs sportifs.
+        </p>
+        <p>
+          Et parce que ma philosophie est au cœur de cette aventure, elle a naturellement donné son nom à BLISE UP :
+        </p>
+
+        <div class="blise">
+          <ul class="acro">
+            <li><b>B</b><span><strong>Balance</strong> – trouver son équilibre</span></li>
+            <li><b>L</b><span><strong>Liveliness</strong> – se mettre en mouvement</span></li>
+            <li><b>I</b><span><strong>Improvement</strong> – progresser à son rythme</span></li>
+            <li><b>S</b><span><strong>Satisfaction</strong> – prendre du plaisir et savourer ses réussites</span></li>
+            <li><b>E</b><span><strong>Enrichment</strong> – grandir et s'enrichir de chaque expérience</span></li>
+          </ul>
+          <div class="acro-up">
+            <svg class="chevrons" aria-hidden="true"><use href="#chevrons"/></svg>
+            UP !
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ===== Coaching ===== -->
-  <section id="coaching">
+  <section class="coaching" id="coaching">
     <div class="container">
       <span class="etiquette reveal">Coaching</span>
-      <h2 class="titre reveal">Et toi, <span class="menthe">après quoi tu cours ?</span></h2>
-      <p class="sous-titre reveal">Trois façons de travailler ensemble. On en discute et on choisit la formule qui te correspond.</p>
+      <h2 class="titre reveal">Comment ça <span class="menthe">se passe ?</span></h2>
 
-      <div class="offres">
-        <article class="offre reveal">
-          <img src="images/lacets.jpeg" alt="Coureuse qui lace ses chaussures avant l'entraînement">
-          <div class="contenu">
-            <h3>Coaching personnalisé</h3>
-            <p>Un plan d'entraînement sur mesure, ajusté chaque semaine selon tes retours, ta forme et ton agenda.</p>
-            <a href="#contact" class="lien">En savoir plus →</a>
-          </div>
-        </article>
+      <div class="grille">
+        <div>
+          <p class="intro-coaching reveal">
+            Le but est que tout soit simplifié pour toi. Que tu chausses tes baskets, enfourches ton vélo ou
+            enfiles ton maillot de bain, tes séances seront prêtes et ciblées pour ton objectif.
+            <strong>Tu n'auras plus qu'à t'entraîner, je m'occupe du reste !</strong>
+          </p>
 
-        <article class="offre reveal">
-          <img src="images/arrivee-triathlon.jpeg" alt="Lise franchissant la ligne d'arrivée d'un triathlon">
-          <div class="contenu">
-            <h3>Avec dossard</h3>
-            <p>Préparation ciblée pour ta course : 10 km, semi, marathon, trail ou triathlon. Stratégie, nutrition et mental inclus.</p>
-            <a href="#contact" class="lien">En savoir plus →</a>
-          </div>
-        </article>
+          <ol class="etapes">
+            <li class="etape reveal">
+              <span class="etape-num">01</span>
+              <div>
+                <h3>On échange</h3>
+                <p>J'ai besoin de comprendre tes envies, tes objectifs, tes besoins, ce qui fait sens pour toi, tes disponibilités et la manière dont tu aimerais que je t'accompagne.</p>
+              </div>
+            </li>
+            <li class="etape reveal">
+              <span class="etape-num">02</span>
+              <div>
+                <h3>On débute</h3>
+                <p>Ensemble, on décide du début du coaching. Tu auras accès à une plateforme d'entraînement où tes séances seront affichées et directement connectées chez toi. Plus besoin de réfléchir à ce que tu dois faire, tout te sera indiqué en temps réel.</p>
+              </div>
+            </li>
+            <li class="etape reveal">
+              <span class="etape-num">03</span>
+              <div>
+                <h3>On débriefe</h3>
+                <p>Après chaque séance, tu recevras un retour sur ton entraînement, en lien avec les données récoltées, ta perception de l'effort et tes sensations.</p>
+              </div>
+            </li>
+            <li class="etape reveal">
+              <span class="etape-num">04</span>
+              <div>
+                <h3>On avance</h3>
+                <p>Chaque semaine, tu recevras ta nouvelle structure d'entraînement, évolutive et adaptée à notre discussion de départ afin d'atteindre tes objectifs.</p>
+              </div>
+            </li>
+            <li class="etape reveal">
+              <span class="etape-num">05</span>
+              <div>
+                <h3>On réussit</h3>
+                <p>Après toutes tes heures d'entraînement, place à la satisfaction et au plaisir de ta réussite !</p>
+              </div>
+            </li>
+          </ol>
+        </div>
 
-        <article class="offre reveal">
-          <img src="images/equipe.jpeg" alt="Groupe de coureurs Blise Up avant une course de nuit">
-          <div class="contenu">
-            <h3>Entraînements de groupe</h3>
-            <p>Séances collectives et préparation physique dans une ambiance motivante. Parce qu'ensemble, on va plus loin.</p>
-            <a href="#contact" class="lien">En savoir plus →</a>
-          </div>
-        </article>
+        <div class="photo-coaching reveal">
+          <img src="images/every-pace.jpeg" alt="Lise de dos avec un t-shirt « Every pace has a place » devant les montagnes" loading="lazy">
+        </div>
       </div>
     </div>
   </section>
@@ -360,35 +439,22 @@
     </div>
   </div>
 
-  <!-- ===== Galerie ===== -->
-  <section id="galerie">
-    <div class="container">
-      <span class="etiquette reveal">Galerie</span>
-      <h2 class="titre reveal">Sur le <span class="menthe">terrain</span></h2>
-      <p class="sous-titre reveal">Quelques moments partagés entre entraînements, courses et paysages valaisans.</p>
-
-      <div class="galerie reveal">
-        <figure class="haute"><img src="images/lise-velo.jpeg" alt="Lise à vélo dans les vignes valaisannes" loading="lazy"></figure>
-        <figure class="large"><img src="images/montagne.jpeg" alt="Lac de montagne en Valais avec le Mont-Blanc au loin" loading="lazy"></figure>
-        <figure class="haute"><img src="images/berlin.jpeg" alt="Médaille du marathon de Berlin 2025 devant la porte de Brandebourg" loading="lazy"></figure>
-        <figure><img src="images/chaussette.jpeg" alt="Chaussette de course et basket vues à l'envers" loading="lazy"></figure>
-        <figure><img src="images/materiel.jpeg" alt="Matériel de trail préparé avant une course" loading="lazy"></figure>
-        <figure class="large"><img src="images/calin-arrivee.jpeg" alt="Lise félicite une coureuse à l'arrivée" loading="lazy"></figure>
-      </div>
-    </div>
-  </section>
-
   <!-- ===== Contact ===== -->
   <section class="contact" id="contact">
-    <div class="container">
-      <span class="etiquette reveal">Contact</span>
-      <h2 class="titre reveal">Prêt·e à <span class="menthe">passer au niveau UP</span> ?</h2>
-      <p class="sous-titre reveal">
-        Écris-moi pour qu'on fasse le point sur tes objectifs. Le premier échange est l'occasion de voir si on est faits pour courir ensemble !
-      </p>
-      <div class="actions reveal">
-        <a href="https://www.instagram.com/blise_up/" target="_blank" rel="noopener" class="btn btn-menthe">Écris-moi sur Instagram</a>
-        <a href="mailto:lise@bliseup.ch" class="btn btn-contour">lise@bliseup.ch</a>
+    <div class="container grille">
+      <div class="photo-contact reveal">
+        <img src="images/celine-lise.jpeg" alt="Lise et Céline se prennent dans les bras à l'arrivée de la course de la Sainte-Catherine" loading="lazy">
+      </div>
+      <div>
+        <span class="etiquette reveal">Contact</span>
+        <h2 class="titre reveal">Prêt·e à <span class="menthe">passer au niveau UP</span> ?</h2>
+        <p class="sous-titre reveal">
+          Écris-moi pour qu'on fasse le point sur tes objectifs.
+        </p>
+        <div class="actions reveal">
+          <a href="https://www.instagram.com/blise_up/" target="_blank" rel="noopener" class="btn btn-menthe">Écris-moi sur Instagram</a>
+          <a href="mailto:lise@bliseup.ch" class="btn btn-contour">lise@bliseup.ch</a>
+        </div>
       </div>
     </div>
   </section>
@@ -396,10 +462,7 @@
   <!-- ===== Pied de page ===== -->
   <footer>
     <div class="container">
-      <a href="#accueil" class="logo">
-        BLISE UP
-        <svg class="chevrons"><use href="#chevrons"/></svg>
-      </a>
+      <a href="#accueil"><img src="images/logo.jpeg" alt="Logo Blise Up" class="logo-img"></a>
       <small>© <span id="annee"></span> Blise Up · Coaching sportif en Valais</small>
       <a href="https://www.instagram.com/blise_up/" target="_blank" rel="noopener" class="menthe">@blise_up</a>
     </div>
