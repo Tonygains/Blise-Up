@@ -24,7 +24,7 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
     body {
       font-family: "Open Sans", system-ui, sans-serif;
       background: var(--noir);
@@ -49,7 +49,12 @@
 
     /* ---------- Logo ---------- */
     .chevrons { width: 34px; height: 30px; flex-shrink: 0; }
-    .logo-img { height: 58px; width: 58px; border-radius: 50%; }
+    .logo-img { height: 84px; width: 84px; border-radius: 50%; }
+
+    /* ---------- Textes justifiés ---------- */
+    .hero p.intro, .approche-texte p, .pilier p, .apropos p, .coaching p {
+      text-align: justify; hyphens: auto; -webkit-hyphens: auto;
+    }
 
     /* ---------- Navigation ---------- */
     header {
@@ -58,7 +63,7 @@
       backdrop-filter: blur(8px);
       border-bottom: 1px solid rgba(255,255,255,.06);
     }
-    .nav { display: flex; align-items: center; justify-content: space-between; height: 74px; }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 100px; }
     .nav ul { display: flex; gap: 28px; list-style: none; }
     .nav ul a { font-weight: 600; font-size: .95rem; transition: color .2s; }
     .nav ul a:hover { color: var(--menthe); }
@@ -86,9 +91,10 @@
     .hero-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
     .hero-texte {
       display: flex; flex-direction: column; justify-content: center;
-      padding: 120px 7vw 60px;
+      padding: 130px 7vw 60px;
     }
-    .hero-logo { width: min(300px, 70%); margin-bottom: 28px; margin-left: -18px; }
+    .hero-texte-bloc { width: 100%; max-width: 520px; margin: 0 auto; }
+    .hero-logo { display: block; width: min(420px, 90%); margin: 0 auto 24px; }
     .hero p.intro { max-width: 520px; color: #e2e2e2; margin-bottom: 34px; font-size: 1.1rem; }
     .hero .actions { display: flex; flex-wrap: wrap; gap: 14px; }
 
@@ -143,8 +149,8 @@
       margin-top: 30px; padding: 28px; border-radius: var(--radius);
       background: var(--noir); color: var(--blanc);
     }
-    .acro { list-style: none; display: grid; gap: 12px; }
-    .acro li { display: flex; align-items: baseline; gap: 16px; }
+    .acro { list-style: none; display: grid; grid-auto-rows: 1fr; gap: 14px; }
+    .acro li { display: flex; align-items: center; gap: 16px; }
     .acro b {
       font-family: "Anton", sans-serif; font-weight: 400; font-size: 2rem; line-height: 1;
       color: var(--menthe); width: 26px; flex-shrink: 0;
@@ -159,7 +165,7 @@
     .acro-up .chevrons { width: 60px; height: 54px; color: var(--blanc); }
 
     /* ---------- Coaching : comment ça se passe ---------- */
-    .coaching .grille { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: start; }
+    .coaching .grille { display: grid; grid-template-columns: 1.7fr 1fr; gap: 70px; align-items: start; }
     .coaching .intro-coaching { color: #d6d6d6; font-size: 1.05rem; margin-bottom: 40px; max-width: 620px; }
     .coaching .intro-coaching strong { color: var(--menthe); }
     .etapes { list-style: none; position: relative; }
@@ -167,7 +173,7 @@
       content: ""; position: absolute; left: 23px; top: 10px; bottom: 10px; width: 2px;
       background: linear-gradient(var(--menthe), rgba(134,217,165,.15));
     }
-    .etape { position: relative; display: grid; grid-template-columns: 48px 1fr; gap: 20px; padding-bottom: 30px; }
+    .etape { position: relative; display: grid; grid-template-columns: 48px 1fr; gap: 40px; padding-bottom: 30px; }
     .etape:last-child { padding-bottom: 0; }
     .etape-num {
       position: relative; z-index: 1;
@@ -179,7 +185,7 @@
     .etape h3 { font-size: 1.45rem; margin: 8px 0 6px; }
     .etape p { color: var(--gris); }
     .etape:last-child .etape-num { background: var(--menthe); color: var(--noir); }
-    .coaching .photo-coaching { position: sticky; top: 110px; }
+    .coaching .photo-coaching { position: sticky; top: 130px; max-width: 360px; justify-self: end; }
     .coaching .photo-coaching img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--radius); }
 
     /* ---------- Bandeau ---------- */
@@ -190,7 +196,7 @@
     /* ---------- Contact ---------- */
     .contact .grille { display: grid; grid-template-columns: 1fr 1.1fr; gap: 60px; align-items: center; }
     .contact .photo-contact img { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: var(--radius); }
-    .contact .sous-titre { margin-bottom: 34px; }
+    .contact .titre { margin-bottom: 34px; }
     .contact .actions { display: flex; flex-wrap: wrap; gap: 14px; }
 
     /* ---------- Footer ---------- */
@@ -205,19 +211,20 @@
     /* ---------- Responsive ---------- */
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; }
-      .hero-photo { min-height: 55vh; margin-top: 74px; }
-      .hero-texte { padding: 50px 20px 70px; }
+      .hero-photo { min-height: 55vh; }
+      .hero-texte { padding: 130px 20px 60px; }
       .piliers { grid-template-columns: 1fr; }
       .apropos .grille, .coaching .grille, .contact .grille { grid-template-columns: 1fr; gap: 50px; }
       .apropos .photo-wrap, .coaching .photo-coaching { position: relative; top: 0; }
-      .coaching .photo-coaching { order: -1; max-width: 480px; }
+      .coaching .photo-coaching { order: -1; max-width: 360px; justify-self: start; }
+      .etape { gap: 22px; }
       .blise { grid-template-columns: 1fr; }
       .acro-up { flex-direction: row; justify-content: center; padding: 20px 0 0; border-left: 0; border-top: 1px solid rgba(255,255,255,.15); }
     }
     @media (max-width: 760px) {
       .burger { display: block; }
       .nav ul {
-        position: absolute; top: 74px; left: 0; right: 0;
+        position: absolute; top: 100px; left: 0; right: 0;
         flex-direction: column; gap: 0; background: var(--noir);
         max-height: 0; overflow: hidden; transition: max-height .35s ease;
       }
@@ -241,7 +248,7 @@
   <header>
     <div class="container nav">
       <a href="#accueil" aria-label="Blise Up – retour à l'accueil">
-        <img src="images/logo.jpeg" alt="Logo Blise Up" class="logo-img">
+        <img src="images/logo-blanc.jpeg" alt="Logo Blise Up" class="logo-img">
       </a>
       <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -257,13 +264,11 @@
 
   <!-- ===== Accueil ===== -->
   <section class="hero" id="accueil">
-    <div class="hero-photo">
-      <img src="images/accueil.jpeg" alt="Chaussette de course Blise Up et basket, photo à l'envers devant la montagne">
-    </div>
     <div class="hero-texte">
+     <div class="hero-texte-bloc">
       <img src="images/logo-slogan.jpeg" alt="Blise Up – Du sport, à ta manière !" class="hero-logo">
       <h1 class="sr-only">Blise Up – Du sport, à ta manière !</h1>
-      <span class="etiquette">Coach & préparatrice physique · Valais</span>
+      <span class="etiquette">Coach & préparatrice physique</span>
       <p class="intro">
         Que tu vises ton premier dossard, une course qui te challenge ou simplement le plaisir de bouger,
         je t'accompagne avec un coaching adapté à <strong>TA</strong> vie, pour progresser
@@ -273,6 +278,10 @@
         <a href="#contact" class="btn btn-menthe">Je me lance</a>
         <a href="#coaching" class="btn btn-contour">Découvrir le coaching</a>
       </div>
+     </div>
+    </div>
+    <div class="hero-photo">
+      <img src="images/accueil.jpeg" alt="Chaussette de course Blise Up et basket, photo à l'envers devant la montagne">
     </div>
   </section>
 
@@ -280,10 +289,10 @@
   <section id="approche">
     <div class="container">
       <span class="etiquette reveal">Mon approche</span>
-      <h2 class="titre reveal">Ton sport, tes règles<br><span class="menthe">Notre défi</span></h2>
+      <h2 class="titre reveal">Ton sport, tes règles <span class="menthe">Notre défi</span></h2>
       <div class="approche-texte reveal">
         <p class="accroche">
-          On part de toi, de tes objectifs, de tes envies et de tes besoins. On adapte ensemble un programme
+          On part de toi, on adapte ensemble un programme
           qui pourra répondre à ton équilibre de vie <strong>ET</strong> à ton objectif sportif.
         </p>
         <p>
@@ -310,7 +319,7 @@
         </div>
         <div class="pilier reveal">
           <svg class="icone" aria-hidden="true"><use href="#chevrons"/></svg>
-          <h3>Adapté à TA vie</h3>
+          <h3>Progresser sans s'épuiser</h3>
           <p>Avancer vers tes objectifs tout en préservant ton équilibre : boulot, famille, récupération et plaisir.</p>
         </div>
       </div>
@@ -332,23 +341,18 @@
         </p>
         <p>
           Travailleuse sociale de métier et coach sportive en parallèle, j'allie deux casquettes qui, pour moi,
-          se complètent naturellement. Dans les deux domaines, j'aime comprendre, accompagner, motiver et valoriser
-          les ressources de chacun.
+          se complètent naturellement : j'aime comprendre, accompagner, motiver et valoriser les ressources de chacun.
         </p>
         <p class="fort">Mais derrière BLISE UP, il y a une histoire plus personnelle.</p>
         <p>
-          Le sport a toujours fait partie de ma vie. Il m'a fait vibrer, découvrir mes limites, les repousser,
-          vivre de belles aventures et faire des rencontres incroyables.
+          Le sport a toujours fait partie de ma vie. Il m'a fait vibrer, découvrir mes limites, les repousser
+          et vivre de belles aventures.
         </p>
         <p>
-          Mais le sport, ce n'est pas toujours une histoire de réussite, de motivation et de dépassement de soi.
-          Ce sont aussi des blessures, des doutes, des remises en question et parfois même des moments où l'on se
-          perd un peu, où l'on ne sait plus vraiment pourquoi on court, pourquoi on s'entraîne ou ce que l'on recherche.
-        </p>
-        <p>
-          C'est de cette conviction qu'est né BLISE UP : un coaching qui place l'humain avant la performance, qui
-          respecte les rythmes de chacun et qui donne autant d'importance au plaisir, à l'équilibre et à la
-          confiance qu'aux objectifs sportifs.
+          Mais le sport, ce n'est pas toujours une histoire de réussite. Ce sont aussi des doutes, des remises en
+          question et parfois même des moments où l'on se perd un peu. C'est de cette conviction qu'est né BLISE UP :
+          un coaching qui place l'humain avant la performance, qui respecte les rythmes de chacun et qui donne autant
+          d'importance au plaisir de se dépasser qu'aux objectifs sportifs.
         </p>
         <p>
           Et parce que ma philosophie est au cœur de cette aventure, elle a naturellement donné son nom à BLISE UP :
@@ -359,8 +363,8 @@
             <li><b>B</b><span><strong>Balance</strong> – trouver son équilibre</span></li>
             <li><b>L</b><span><strong>Liveliness</strong> – se mettre en mouvement</span></li>
             <li><b>I</b><span><strong>Improvement</strong> – progresser à son rythme</span></li>
-            <li><b>S</b><span><strong>Satisfaction</strong> – prendre du plaisir et savourer ses réussites</span></li>
-            <li><b>E</b><span><strong>Enrichment</strong> – grandir et s'enrichir de chaque expérience</span></li>
+            <li><b>S</b><span><strong>Satisfaction</strong> – savourer ses réussites</span></li>
+            <li><b>E</b><span><strong>Enrichment</strong> – s'enrichir de chaque expérience</span></li>
           </ul>
           <div class="acro-up">
             <svg class="chevrons" aria-hidden="true"><use href="#chevrons"/></svg>
@@ -380,9 +384,8 @@
       <div class="grille">
         <div>
           <p class="intro-coaching reveal">
-            Le but est que tout soit simplifié pour toi. Que tu chausses tes baskets, enfourches ton vélo ou
-            enfiles ton maillot de bain, tes séances seront prêtes et ciblées pour ton objectif.
-            <strong>Tu n'auras plus qu'à t'entraîner, je m'occupe du reste !</strong>
+            Le but est que tout soit simplifié pour toi.
+            <strong>Tu n'as plus qu'à t'entraîner, je m'occupe du reste !</strong>
           </p>
 
           <ol class="etapes">
@@ -390,28 +393,28 @@
               <span class="etape-num">01</span>
               <div>
                 <h3>On échange</h3>
-                <p>J'ai besoin de comprendre tes envies, tes objectifs, tes besoins, ce qui fait sens pour toi, tes disponibilités et la manière dont tu aimerais que je t'accompagne.</p>
+                <p>J'ai besoin de comprendre tes envies, tes objectifs, tes besoins, ce qui fait sens pour toi et tes disponibilités.</p>
               </div>
             </li>
             <li class="etape reveal">
               <span class="etape-num">02</span>
               <div>
                 <h3>On débute</h3>
-                <p>Ensemble, on décide du début du coaching. Tu auras accès à une plateforme d'entraînement où tes séances seront affichées et directement connectées chez toi. Plus besoin de réfléchir à ce que tu dois faire, tout te sera indiqué en temps réel.</p>
+                <p>Tu as accès à une plateforme d'entraînement où tes séances sont affichées et directement connectées chez toi. Plus besoin de réfléchir à ce que tu dois faire, tout t'est indiqué en temps réel.</p>
               </div>
             </li>
             <li class="etape reveal">
               <span class="etape-num">03</span>
               <div>
                 <h3>On débriefe</h3>
-                <p>Après chaque séance, tu recevras un retour sur ton entraînement, en lien avec les données récoltées, ta perception de l'effort et tes sensations.</p>
+                <p>Après chaque séance, tu reçois un retour sur ton entraînement.</p>
               </div>
             </li>
             <li class="etape reveal">
               <span class="etape-num">04</span>
               <div>
                 <h3>On avance</h3>
-                <p>Chaque semaine, tu recevras ta nouvelle structure d'entraînement, évolutive et adaptée à notre discussion de départ afin d'atteindre tes objectifs.</p>
+                <p>Chaque semaine, tu reçois ta nouvelle structure d'entraînement, évolutive et adaptée à notre discussion de départ afin d'atteindre tes objectifs.</p>
               </div>
             </li>
             <li class="etape reveal">
@@ -448,9 +451,6 @@
       <div>
         <span class="etiquette reveal">Contact</span>
         <h2 class="titre reveal">Prêt·e à <span class="menthe">passer au niveau UP</span> ?</h2>
-        <p class="sous-titre reveal">
-          Écris-moi pour qu'on fasse le point sur tes objectifs.
-        </p>
         <div class="actions reveal">
           <a href="https://www.instagram.com/blise_up/" target="_blank" rel="noopener" class="btn btn-menthe">Écris-moi sur Instagram</a>
           <a href="mailto:lise@bliseup.ch" class="btn btn-contour">lise@bliseup.ch</a>
@@ -463,7 +463,7 @@
   <footer>
     <div class="container">
       <a href="#accueil"><img src="images/logo.jpeg" alt="Logo Blise Up" class="logo-img"></a>
-      <small>© <span id="annee"></span> Blise Up · Coaching sportif en Valais</small>
+      <small>© <span id="annee"></span> Blise Up · Coaching sportif</small>
       <a href="https://www.instagram.com/blise_up/" target="_blank" rel="noopener" class="menthe">@blise_up</a>
     </div>
   </footer>
