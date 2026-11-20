@@ -67,10 +67,11 @@
     .nav ul { display: flex; gap: 28px; list-style: none; }
     .nav ul a { font-weight: 600; font-size: .95rem; transition: color .2s; }
     .nav ul a:hover { color: var(--menthe); }
-    /* Menu à gauche, logo à droite */
-    .nav ul { order: 1; }
-    .nav > a { order: 2; }
-    .burger { order: 0; }
+    /* Logo texte + chevrons en haut à gauche */
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 800; font-size: 1.3rem; letter-spacing: 1px;
+    }
     .burger { display: none; background: none; border: 0; cursor: pointer; padding: 6px; }
     .burger span { display: block; width: 26px; height: 2px; background: var(--blanc); margin: 6px 0; transition: .3s; }
 
@@ -212,8 +213,7 @@
     .btn-contour { background: none; cursor: pointer; font-family: inherit; }
 
     /* ---------- Formulaire ---------- */
-    .formulaire { display: none; margin-top: 30px; }
-    .formulaire.ouvert { display: grid; gap: 14px; }
+    .formulaire { display: grid; gap: 14px; margin-top: 30px; }
     .formulaire .ligne { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .formulaire label { display: grid; gap: 6px; font-size: .85rem; font-weight: 600; color: var(--gris); }
     .formulaire input, .formulaire textarea {
@@ -279,8 +279,9 @@
   <!-- ===== En-tête ===== -->
   <header>
     <div class="container nav">
-      <a href="#accueil" aria-label="Blise Up – retour à l'accueil">
-        <img src="images/logo-blanc.jpeg" alt="Logo Blise Up" class="logo-img">
+      <a href="#accueil" class="logo" aria-label="Blise Up – retour à l'accueil">
+        BLISE UP
+        <svg class="chevrons" aria-hidden="true"><use href="#chevrons"/></svg>
       </a>
       <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -442,14 +443,14 @@
               <span class="etape-num">03</span>
               <div>
                 <h3>On débriefe</h3>
-                <p><strong>Après chaque séance</strong>, tu reçois un retour détaillé sur ton entraînement, qui combine ton ressenti personnel et les données récoltées afin de mieux comprendre tes performances et suivre ta progression.</p>
+                <p>Après <strong>chaque</strong> séance, tu reçois un retour détaillé sur ton entraînement, qui combine ton ressenti personnel et les données récoltées afin de mieux comprendre tes performances et suivre ta progression.</p>
               </div>
             </li>
             <li class="etape reveal">
               <span class="etape-num">04</span>
               <div>
                 <h3>On avance</h3>
-                <p><strong>Chaque semaine</strong>, tu reçois ta nouvelle structure d'entraînement, évolutive et adaptée à notre discussion de départ afin d'atteindre tes objectifs.</p>
+                <p>Chaque semaine, tu reçois ta nouvelle structure d'entraînement, évolutive et adaptée à notre discussion de départ afin d'atteindre tes objectifs.</p>
               </div>
             </li>
             <li class="etape reveal">
@@ -487,7 +488,7 @@
         <h2 class="titre reveal">Prêt·e à <span class="menthe">passer au niveau UP</span> ?</h2>
         <div class="actions reveal">
           <a href="https://www.instagram.com/blise_up/" target="_blank" rel="noopener" class="btn btn-menthe">Écris-moi sur Instagram</a>
-          <button type="button" class="btn btn-contour" id="ouvrirForm" aria-expanded="false" aria-controls="formContact">Ou par mail</button>
+          <a href="#formContact" class="btn btn-contour" id="ouvrirForm">Ou via ce formulaire</a>
         </div>
 
         <!-- Formulaire : les messages arrivent dans la boîte mail de Lise via FormSubmit -->
@@ -542,10 +543,9 @@
     const boutonForm = document.getElementById('ouvrirForm');
     const form = document.getElementById('formContact');
     const formMessage = document.getElementById('formMessage');
-    boutonForm.addEventListener('click', () => {
-      const ouvert = form.classList.toggle('ouvert');
-      boutonForm.setAttribute('aria-expanded', ouvert);
-      if (ouvert) form.querySelector('input[type="text"]:not(.piege)').focus();
+    boutonForm.addEventListener('click', (e) => {
+      e.preventDefault();
+      form.querySelector('input[type="text"]:not(.piege)').focus();
     });
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
